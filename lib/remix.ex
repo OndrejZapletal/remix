@@ -62,9 +62,15 @@ defmodule Remix do
       {path, current_mtime}
     end
 
+    def get_valid_files(files, dir) do
+      files
+      |> Enum.reject(&(Regex.run(~r/^\.#.+/, &1)))
+      |> get_current_mtime([], dir)
+    end
+
     def get_current_mtime(dir) do
       case File.ls(dir) do
-        {:ok, files} -> get_current_mtime(files, [], dir)
+        {:ok, files} -> get_valid_files(files, dir)
         _            -> nil
       end
     end
