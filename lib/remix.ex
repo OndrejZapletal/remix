@@ -49,6 +49,7 @@ defmodule Remix do
       case Application.get_all_env(:remix)[:silent] do
         true ->
           ExUnit.CaptureIO.capture_io(comp_elixir)
+          IO.puts "compiled"
           if Application.get_all_env(:remix)[:escript] == true do
             ExUnit.CaptureIO.capture_io(comp_escript)
           end
